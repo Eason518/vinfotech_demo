@@ -1,117 +1,108 @@
-import { useState } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Download, Search, DollarSign, TrendingUp, Calendar, Hash } from 'lucide-react';
-import Layout from '../../components/Layout';
-import { depositReports } from '../../data/mockData';
+import { useState } from "react";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { Download } from "lucide-react";
+import Layout from "../../components/Layout";
+
+const mockData = [
+  { date:"2024-03-20", username:"vijay_r", state:"Active", orderId:"ORD003", transactionId:"TXR345678901", paymentMode:"UPI", depositedAmount:2500.00, processingCharges:25.00, actualAmount:2475.00 },
+  { date:"2024-03-19", username:"arjun_b", state:"Active", orderId:"ORD004", transactionId:"TXR456789012", paymentMode:"Net Banking", depositedAmount:5000.00, processingCharges:50.00, actualAmount:4950.00 },
+  { date:"2024-03-20", username:"rahul_k", state:"Active", orderId:"ORD001", transactionId:"TXR123456789", paymentMode:"UPI", depositedAmount:500.00, processingCharges:5.00, actualAmount:495.00 },
+  { date:"2024-03-20", username:"priya_s", state:"Active", orderId:"ORD002", transactionId:"TXR234567890", paymentMode:"UPI", depositedAmount:1000.00, processingCharges:10.00, actualAmount:990.00 },
+  { date:"2024-03-17", username:"anita_g", state:"Active", orderId:"ORD007", transactionId:"TXR789012345", paymentMode:"UPI", depositedAmount:1000.00, processingCharges:10.00, actualAmount:990.00 },
+];
 
 const monthlyData = [
-  { month: 'Oct', amount: 380000 }, { month: 'Nov', amount: 510000 },
-  { month: 'Dec', amount: 620000 }, { month: 'Jan', amount: 490000 },
-  { month: 'Feb', amount: 580000 }, { month: 'Mar', amount: 667650 },
+  { month:"Oct", amount:380000 },{ month:"Nov", amount:510000 },
+  { month:"Dec", amount:620000 },{ month:"Jan", amount:490000 },
+  { month:"Feb", amount:580000 },{ month:"Mar", amount:667650 },
 ];
 
 export default function DepositReport() {
-  const [search, setSearch] = useState('');
-  const [sort, setSort] = useState({ col: 'totalDepositAmount', dir: 'desc' });
-  const [dateFrom, setDateFrom] = useState('2024-01-01');
-  const [dateTo, setDateTo] = useState('2024-03-31');
+  const [filters, setFilters] = useState({ from:"", to:"", paymentMethod:"", status:"", search:"" });
+  const clear = () => setFilters({ from:"", to:"", paymentMethod:"", status:"", search:"" });
 
-  const filtered = [...depositReports]
-    .filter(u => !search || u.username.toLowerCase().includes(search.toLowerCase()))
-    .sort((a,b) => sort.dir === 'desc' ? b[sort.col]-a[sort.col] : a[sort.col]-b[sort.col]);
-
-  const toggleSort = (col) => setSort(s => ({ col, dir: s.col===col && s.dir==='desc'?'asc':'desc' }));
-  const sortIcon = (col) => sort.col===col?(sort.dir==='desc'?' ↓':' ↑'):' ↕';
-
-  const totalAmount = depositReports.reduce((s,u)=>s+u.totalDepositAmount,0);
-  const totalCount = depositReports.reduce((s,u)=>s+u.depositCount,0);
-  const avgDeposit = totalAmount / totalCount;
+  const filtered = mockData.filter(u =>
+    (!filters.search || u.username.toLowerCase().includes(filters.search.toLowerCase())) &&
+    (!filters.paymentMethod || u.paymentMode === filters.paymentMethod)
+  );
 
   return (
     <Layout title="User Deposit Amount">
       <div className="page-header">
         <p className="breadcrumb">Home / Report / <span>User Deposit Amount</span></p>
         <div className="flex justify-between items-center">
-          <h1>User Deposit Amount Report</h1>
-          <button className="btn btn-outline btn-sm"><Download size={13} /> Export CSV</button>
+          <h1>User Deposit Amount</h1>
+          <div style={{fontSize:"13px",color:"var(--text-muted)"}}>Total record count: {filtered.length}</div>
         </div>
       </div>
 
-      <div className="stats-grid" style={{marginBottom:'20px'}}>
-        {[[DollarSign,'Total Deposits','Rs.'+totalAmount.toLocaleString(),'#28a745'],[Hash,'Total Transactions',totalCount,'#3a7bd5'],[TrendingUp,'Avg. Deposit per Tx','Rs.'+avgDeposit.toFixed(0),'#6f42c1'],[Calendar,'Report Period','Oct 23 – Mar 24','#fd7e14']].map(([Icon,l,v,c])=>(
-          <div key={l} className="stat-card">
-            <div style={{background:c+'18',borderRadius:'10px',padding:'9px',display:'inline-flex',marginBottom:'10px'}}><Icon size={20} color={c} /></div>
-            <div className="s-label">{l}</div>
-            <div className="s-value" style={{fontSize:'18px',color:c}}>{v}</div>
+      <div className="card" style={{marginBottom:"20px"}}>
+        <div className="filter-row">
+          <div className="form-group">
+            <label className="form-label">Payment Method</label>
+            <select className="form-control" value={filters.paymentMethod} onChange={e=>setFilters({...filters,paymentMethod:e.target.value})}>
+              <option value="">All</option><option>UPI</option><option>Net Banking</option><option>Credit Card</option><option>Wallet</option>
+            </select>
           </div>
-        ))}
+          <div className="form-group">
+            <label className="form-label">Status</label>
+            <select className="form-control" value={filters.status} onChange={e=>setFilters({...filters,status:e.target.value})}>
+              <option value="">All</option><option>Success</option><option>Pending</option><option>Failed</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="form-label">Search User</label>
+            <input className="form-control" placeholder="Search User" value={filters.search} onChange={e=>setFilters({...filters,search:e.target.value})}/>
+          </div>
+          <div className="form-group">
+            <label className="form-label">From Date</label>
+            <input type="date" className="form-control" value={filters.from} onChange={e=>setFilters({...filters,from:e.target.value})}/>
+          </div>
+          <div className="form-group">
+            <label className="form-label">To Date</label>
+            <input type="date" className="form-control" value={filters.to} onChange={e=>setFilters({...filters,to:e.target.value})}/>
+          </div>
+          <button className="btn btn-danger btn-sm" style={{alignSelf:"flex-end"}} onClick={clear}>Clear Filters</button>
+          <button className="btn btn-outline btn-sm" style={{alignSelf:"flex-end"}}><Download size={13}/> Export</button>
+        </div>
       </div>
 
-      <div className="card" style={{marginBottom:'20px'}}>
+      <div className="card" style={{marginBottom:"20px"}}>
         <div className="card-title">Monthly Deposit Trend</div>
-        <ResponsiveContainer width="100%" height={200}>
+        <ResponsiveContainer width="100%" height={180}>
           <AreaChart data={monthlyData}>
-            <defs>
-              <linearGradient id="dep" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#28a745" stopOpacity={0.25} />
-                <stop offset="95%" stopColor="#28a745" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-            <XAxis dataKey="month" tick={{fontSize:12}} />
-            <YAxis tick={{fontSize:11}} tickFormatter={v=>'Rs.'+Math.round(v/1000)+'K'} />
-            <Tooltip formatter={v=>['Rs.'+v.toLocaleString(),'Deposits']} />
-            <Area type="monotone" dataKey="amount" stroke="#28a745" fill="url(#dep)" strokeWidth={2} />
+            <defs><linearGradient id="dep" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#28a745" stopOpacity={0.25}/><stop offset="95%" stopColor="#28a745" stopOpacity={0}/></linearGradient></defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0"/>
+            <XAxis dataKey="month" tick={{fontSize:12}}/>
+            <YAxis tick={{fontSize:11}} tickFormatter={v=>"Rs."+Math.round(v/1000)+"K"}/>
+            <Tooltip formatter={v=>["Rs."+v.toLocaleString(),"Deposits"]}/>
+            <Area type="monotone" dataKey="amount" stroke="#28a745" fill="url(#dep)" strokeWidth={2}/>
           </AreaChart>
         </ResponsiveContainer>
       </div>
 
       <div className="card">
-        <div className="flex justify-between items-center" style={{marginBottom:'16px'}}>
-          <div className="card-title" style={{marginBottom:0}}>Deposit Details by User</div>
-          <div className="flex gap-2 items-center">
-            <input type="date" className="form-control" value={dateFrom} onChange={e=>setDateFrom(e.target.value)} style={{width:'145px'}} />
-            <span style={{color:'var(--text-muted)'}}>to</span>
-            <input type="date" className="form-control" value={dateTo} onChange={e=>setDateTo(e.target.value)} style={{width:'145px'}} />
-            <div style={{position:'relative'}}>
-              <Search size={13} style={{position:'absolute',left:'9px',top:'50%',transform:'translateY(-50%)',color:'var(--text-muted)'}} />
-              <input className="form-control" style={{paddingLeft:'30px',width:'200px'}} placeholder="Search..." value={search} onChange={e=>setSearch(e.target.value)} />
-            </div>
-          </div>
-        </div>
         <div className="table-wrapper">
           <table>
             <thead><tr>
-              <th>User ID</th><th>Username</th><th>Full Name</th>
-              <th style={{cursor:'pointer'}} onClick={()=>toggleSort('totalDepositAmount')}>Total Amount{sortIcon('totalDepositAmount')}</th>
-              <th style={{cursor:'pointer'}} onClick={()=>toggleSort('depositCount')}>Tx Count{sortIcon('depositCount')}</th>
-              <th style={{cursor:'pointer'}} onClick={()=>toggleSort('avgDeposit')}>Avg. Deposit{sortIcon('avgDeposit')}</th>
-              <th>Last Deposit</th>
-              <th>Deposit Share</th>
+              <th>Date</th><th>Username</th><th>State of the User</th><th>Order ID</th>
+              <th>Transaction ID</th><th>Payment Mode</th><th>Deposited Amount</th>
+              <th>Processing Charges</th><th>Actual Amount</th>
             </tr></thead>
             <tbody>
-              {filtered.map(u => {
-                const share = ((u.totalDepositAmount / totalAmount) * 100).toFixed(1);
-                return (
-                  <tr key={u.userId}>
-                    <td style={{fontFamily:'monospace',fontSize:'12px',color:'var(--primary)'}}>{u.userId}</td>
-                    <td><strong>{u.username}</strong></td>
-                    <td>{u.fullName}</td>
-                    <td style={{fontWeight:700,color:'var(--primary)',fontSize:'15px'}}>Rs.{u.totalDepositAmount.toLocaleString()}</td>
-                    <td style={{textAlign:'center',fontWeight:600}}>{u.depositCount}</td>
-                    <td>Rs.{u.avgDeposit.toFixed(2)}</td>
-                    <td style={{color:'var(--text-muted)',fontSize:'13px'}}>{u.lastDeposit}</td>
-                    <td>
-                      <div style={{display:'flex',alignItems:'center',gap:'8px'}}>
-                        <div style={{flex:1,background:'#f0f2f4',borderRadius:'4px',height:'6px',minWidth:'60px'}}>
-                          <div style={{background:'var(--success)',height:'100%',borderRadius:'4px',width:share+'%'}}></div>
-                        </div>
-                        <span style={{fontSize:'12px',fontWeight:600,minWidth:'32px'}}>{share}%</span>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+              {filtered.map((u,i)=>(
+                <tr key={i}>
+                  <td style={{fontSize:"12px"}}>{u.date}</td>
+                  <td><strong>{u.username}</strong></td>
+                  <td><span className="badge badge-success">{u.state}</span></td>
+                  <td style={{fontSize:"12px"}}>{u.orderId}</td>
+                  <td style={{fontFamily:"monospace",fontSize:"11px"}}>{u.transactionId}</td>
+                  <td><span className="badge badge-secondary">{u.paymentMode}</span></td>
+                  <td style={{fontWeight:700,color:"var(--primary)"}}>Rs.{u.depositedAmount.toLocaleString()}</td>
+                  <td style={{color:"var(--danger)",fontSize:"12px"}}>Rs.{u.processingCharges.toFixed(2)}</td>
+                  <td style={{fontWeight:700,color:"var(--success)"}}>Rs.{u.actualAmount.toLocaleString()}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

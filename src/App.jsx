@@ -24,6 +24,9 @@ import SignupPageImage from './pages/content/SignupPageImage';
 import UserReport from './pages/report/UserReport';
 import DepositReport from './pages/report/DepositReport';
 import ChangePassword from './pages/ChangePassword';
+import ForgotPassword from './pages/ForgotPassword';
+import ReferralReport from './pages/report/ReferralReport';
+import DepositWithdrawal from './pages/settings/DepositWithdrawal';
 
 export default function App() {
   return (
@@ -54,6 +57,9 @@ export default function App() {
         <Route path="/settings/games" element={<ManageGames />} />
         <Route path="/settings/assets" element={<AssetsUpload />} />
         <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/report/referral" element={<ReferralReport />} />
+        <Route path="/settings/deposit-withdrawal" element={<DepositWithdrawal />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </HashRouter>

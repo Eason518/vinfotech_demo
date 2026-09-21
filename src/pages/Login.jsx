@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
 
 export default function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showPass, setShowPass] = useState(false);
 
   const handle = async (e) => {
     e.preventDefault();
@@ -17,75 +15,90 @@ export default function Login() {
       localStorage.setItem('cj_auth', '1');
       navigate('/landing');
     } else {
-      setError('Invalid email or password. Please try again.');
+      setError('Invalid email or password. Please check your credentials.');
     }
     setLoading(false);
   };
 
   return (
-    <div className="login-page">
-      <div className="login-left">
-        <div className="login-brand">
-          <div style={{fontSize:'72px', marginBottom:'16px', filter:'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'}}>🏏</div>
-          <h1>CRICJAM</h1>
-          <p>The ultimate Fantasy Sports admin platform.<br/>Manage contests, users, and finances all in one place.</p>
-          <div style={{marginTop:'40px', display:'flex', gap:'32px', justifyContent:'center'}}>
-            {[['48K+','Registered Users'],['1.8K+','Active Contests'],['Rs.28L+','Total Deposits']].map(([n,l])=>(
-              <div key={l} style={{textAlign:'center'}}>
-                <div style={{color:'#fff',fontSize:'24px',fontWeight:800}}>{n}</div>
-                <div style={{color:'rgba(255,255,255,0.6)',fontSize:'12px',marginTop:'2px'}}>{l}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+    <div style={{
+      minHeight:'100vh', background:'#eeeff4',
+      display:'flex', flexDirection:'column',
+    }}>
+      {/* Top bar */}
+      <div style={{background:'#1e2a3a', padding:'16px 24px'}}>
+        <div style={{color:'#fff', fontWeight:700, fontSize:'18px'}}>Cricjam Admin panel</div>
+        <div style={{color:'rgba(255,255,255,0.6)', fontSize:'13px', marginTop:'2px'}}>Let in to get going</div>
       </div>
-      <div className="login-right">
-        <form className="login-form" onSubmit={handle}>
-          <div className="login-logo">
-            <div style={{width:'56px',height:'56px',borderRadius:'14px',background:'linear-gradient(135deg,#3a7bd5,#6f42c1)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 16px',fontSize:'28px'}}>🏏</div>
-            <h2>Admin Portal</h2>
-            <p>Sign in to your admin account</p>
+
+      {/* Center form */}
+      <div style={{flex:1, display:'flex', alignItems:'center', justifyContent:'center'}}>
+        <div style={{
+          background:'#fff', borderRadius:'8px', padding:'32px 40px',
+          width:'400px', boxShadow:'0 2px 12px rgba(0,0,0,0.1)'
+        }}>
+          {/* Logo */}
+          <div style={{textAlign:'center', marginBottom:'24px'}}>
+            <div style={{fontSize:'48px'}}>🛡️</div>
+            <div style={{fontWeight:800, fontSize:'20px', letterSpacing:'2px', color:'#1e2a3a'}}>CRICJAM</div>
           </div>
 
           {error && (
-            <div className="alert" style={{background:'#fff3cd',color:'#856404',border:'1px solid #ffc107',borderRadius:'8px',padding:'12px 14px',display:'flex',alignItems:'center',gap:'8px',fontSize:'13px',marginBottom:'16px'}}>
-              <AlertCircle size={16} />{error}
+            <div style={{background:'#fdecea', color:'#c0392b', border:'1px solid #f5c6cb', borderRadius:'6px', padding:'10px 14px', fontSize:'13px', marginBottom:'16px'}}>
+              {error}
             </div>
           )}
 
-          <div className="form-group">
-            <label className="form-label">Email Address</label>
-            <div style={{position:'relative'}}>
-              <Mail size={15} style={{position:'absolute',left:'11px',top:'50%',transform:'translateY(-50%)',color:'var(--text-muted)'}} />
-              <input className="form-control" type="email" placeholder="Enter your email" style={{paddingLeft:'34px'}}
-                value={form.email} onChange={e=>setForm({...form,email:e.target.value})} required />
+          <form onSubmit={handle}>
+            <div style={{marginBottom:'16px'}}>
+              <input
+                className="form-control"
+                type="email" placeholder="Email"
+                style={{background:'#eef0f2', border:'none', borderRadius:'6px', padding:'12px 14px', fontSize:'14px'}}
+                value={form.email}
+                onChange={e => setForm({...form, email: e.target.value})}
+                required
+              />
             </div>
-          </div>
-          <div className="form-group">
-            <label className="form-label">Password</label>
-            <div style={{position:'relative'}}>
-              <Lock size={15} style={{position:'absolute',left:'11px',top:'50%',transform:'translateY(-50%)',color:'var(--text-muted)'}} />
-              <input className="form-control" type={showPass?'text':'password'} placeholder="Enter your password" style={{paddingLeft:'34px',paddingRight:'36px'}}
-                value={form.password} onChange={e=>setForm({...form,password:e.target.value})} required />
-              <button type="button" onClick={()=>setShowPass(s=>!s)} style={{position:'absolute',right:'10px',top:'50%',transform:'translateY(-50%)',background:'none',border:'none',cursor:'pointer',color:'var(--text-muted)',fontSize:'12px'}}>
-                {showPass?'Hide':'Show'}
-              </button>
+            <div style={{marginBottom:'24px'}}>
+              <input
+                className="form-control"
+                type="password" placeholder="Password"
+                style={{background:'#eef0f2', border:'none', borderRadius:'6px', padding:'12px 14px', fontSize:'14px'}}
+                value={form.password}
+                onChange={e => setForm({...form, password: e.target.value})}
+                required
+              />
             </div>
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                width:'100%', padding:'12px', background:'#6c757d',
+                color:'#fff', border:'none', borderRadius:'6px',
+                fontWeight:600, fontSize:'14px', cursor:'pointer',
+                marginBottom:'16px'
+              }}
+            >
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
+          </form>
+
+          <div style={{textAlign:'center'}}>
+            <a
+              href="#/forgot-password"
+              style={{color:'#e74c3c', fontSize:'13px', textDecoration:'none', fontWeight:500}}
+              onClick={(e) => { e.preventDefault(); navigate('/forgot-password'); }}
+            >
+              Forgot Password?
+            </a>
           </div>
 
-          <button className="btn btn-primary" style={{width:'100%',justifyContent:'center',padding:'11px',marginTop:'8px',fontSize:'14px'}} type="submit" disabled={loading}>
-            {loading ? <span style={{display:'flex',alignItems:'center',gap:'8px'}}><span style={{width:'14px',height:'14px',border:'2px solid rgba(255,255,255,0.4)',borderTopColor:'#fff',borderRadius:'50%',animation:'spin 0.8s linear infinite'}}></span>Signing in...</span>
-             : <span style={{display:'flex',alignItems:'center',gap:'8px'}}><LogIn size={16} /> Sign In</span>}
-          </button>
-
-          <div style={{marginTop:'20px',padding:'14px',background:'#f8f9fa',borderRadius:'8px',fontSize:'12px'}}>
-            <div style={{fontWeight:600,marginBottom:'4px',color:'var(--text-muted)'}}>Demo Credentials</div>
-            <div style={{color:'var(--text-muted)'}}>Email: vadmin@vinfotech.com</div>
-            <div style={{color:'var(--text-muted)'}}>Password: Vdemo@12345</div>
-          </div>
-        </form>
+          <p style={{textAlign:'center', marginTop:'20px', fontSize:'11px', color:'#999'}}>
+            Demo: vadmin@vinfotech.com / Vdemo@12345
+          </p>
+        </div>
       </div>
-      <style>{`@keyframes spin { to { transform: rotate(360deg); }}`}</style>
     </div>
   );
 }

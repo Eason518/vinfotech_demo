@@ -1,40 +1,42 @@
-import { useState } from 'react';
-import Layout from '../../components/Layout';
+import { useState } from "react";
+import Layout from "../../components/Layout";
+import { toast } from "../../components/Toast";
 
 export default function SignupPageImage() {
-  const [images, setImages] = useState([
-    { id:1, name:'Slide 1 - Welcome', active:true },
-    { id:2, name:'Slide 2 - IPL Special', active:true },
-    { id:3, name:'Slide 3 - Fantasy Sports', active:false },
-  ]);
-  const toggle = (id) => setImages(i => i.map(x => x.id===id ? {...x,active:!x.active} : x));
+  const [preview, setPreview] = useState("/placeholder-cricket.jpg");
+  const [file, setFile] = useState(null);
+  const handleFile = (e) => {
+    const f = e.target.files[0];
+    if (f) {
+      setFile(f);
+      setPreview(URL.createObjectURL(f));
+    }
+  };
+  const save = () => { if(file) toast("Image saved successfully","success"); };
+  const reset = () => { setFile(null); setPreview(null); };
   return (
     <Layout title="Signup Page Image">
-      <div className="page-header"><p className="breadcrumb">Home / Content / <span>Signup Page Image</span></p><h1>Signup Page Images</h1></div>
-      <div className="card">
-        <div className="alert alert-info mb-4">These images appear as rotating slides on the login/signup page left panel.</div>
-        <div className="flex justify-between items-center mb-4">
-          <span style={{color:'var(--text-muted)',fontSize:'13px'}}>{images.filter(i=>i.active).length} active slides</span>
-          <button className="btn btn-primary btn-sm">+ Upload New Image</button>
+      <div className="page-header">
+        <p className="breadcrumb">Home / Content Management / <span>Signup Page Image</span></p>
+        <h1>Signup Page Image</h1>
+      </div>
+      <div className="card" style={{maxWidth:"700px"}}>
+        <div className="form-group">
+          <label className="form-label">Select Image (600*1340) <span style={{color:"var(--danger)"}}>*</span></label>
+          <input type="file" accept="image/*" onChange={handleFile} style={{display:"block",marginBottom:"16px"}}/>
         </div>
-        <div className="grid-3">
-          {images.map(img => (
-            <div key={img.id} className="card" style={{padding:'0', overflow:'hidden', border: img.active?'2px solid var(--primary)':'2px solid var(--border)'}}>
-              <div style={{height:'180px',background:'linear-gradient(135deg,#1a2035,#3a7bd5)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'40px'}}>
-                {img.id===1?'🏏':img.id===2?'🏆':'⚡'}
-              </div>
-              <div style={{padding:'14px'}}>
-                <div style={{fontWeight:600,marginBottom:'8px',fontSize:'13px'}}>{img.name}</div>
-                <div className="flex justify-between items-center">
-                  <label className="toggle"><input type="checkbox" checked={img.active} onChange={()=>toggle(img.id)} /><span className="toggle-slider"></span></label>
-                  <div className="flex gap-2">
-                    <button className="btn btn-xs btn-outline">Replace</button>
-                    <button className="btn btn-xs btn-danger">Remove</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+        {preview ? (
+          <div style={{marginBottom:"20px"}}>
+            <img src={preview} alt="Preview" style={{width:"140px",borderRadius:"8px",border:"1px solid var(--border)",objectFit:"cover"}} onError={e=>{e.target.style.display="none"}}/>
+          </div>
+        ) : (
+          <div style={{width:"140px",height:"200px",background:"var(--bg)",borderRadius:"8px",border:"2px dashed var(--border)",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:"20px",color:"var(--text-muted)",fontSize:"13px"}}>
+            No image
+          </div>
+        )}
+        <div className="flex gap-2">
+          <button className="btn btn-outline btn-sm" onClick={save}>Save</button>
+          <button className="btn btn-danger btn-sm" onClick={reset}>Reset</button>
         </div>
       </div>
     </Layout>

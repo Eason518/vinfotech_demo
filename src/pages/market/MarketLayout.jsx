@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Layout from '../../components/Layout';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import './market.css';
 
@@ -135,7 +136,8 @@ function NavItem({ item }) {
 
 export default function MarketLayout() {
   return (
-    <div className="market-root">
+    <Layout title="Market">
+      <div className="market-root" style={{margin:'-24px', minHeight:'calc(100vh - 56px)'}}>
       <nav className="market-navbar">
         <div className="market-navbar-brand">⚡ MarketAdmin</div>
         <div className="market-nav-items">
@@ -176,5 +178,6 @@ export default function MarketLayout() {
         </Routes>
       </div>
     </div>
+    </Layout>
   );
 }

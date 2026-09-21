@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Market from './pages/Market';
+import MarketLayout from './pages/market/MarketLayout';
 import ManageUser from './pages/ManageUser';
 import WithdrawalList from './pages/finance/WithdrawalList';
 import TransactionList from './pages/finance/TransactionList';
@@ -33,7 +34,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/market" element={<Market />} />
+        <Route path="/market/*" element={<MarketLayout />} />
         <Route path="/admin/add-role" element={<AddRole />} />
         <Route path="/admin/manage-roles" element={<ManageRoles />} />
         <Route path="/communication" element={<CommDashboard />} />

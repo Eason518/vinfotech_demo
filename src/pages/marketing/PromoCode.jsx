@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Plus, Edit2, Trash2, Copy, Tag, CheckCircle, XCircle, Hash } from 'lucide-react';
+import { toast } from '../../components/Toast';
 import Layout from '../../components/Layout';
 import { promoCodes as initial } from '../../data/mockData';
 
@@ -26,6 +27,7 @@ export default function PromoCode() {
   const save = () => {
     if (editItem) {
       setData(d => d.map(p => p.id===editItem.id ? {...p,...form, value:+form.value, minDeposit:+form.minDeposit, maxBonus:+form.maxBonus, totalLimit:+form.totalLimit} : p));
+      toast('Promo code updated', 'success');
     } else {
       setData(d => [...d, {...form, id:'PC'+(d.length+1).toString().padStart(3,'0'), usedCount:0, value:+form.value, minDeposit:+form.minDeposit, maxBonus:+form.maxBonus, totalLimit:+form.totalLimit}]);
     }

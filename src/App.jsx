@@ -1,4 +1,5 @@
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import ToastContainer from './components/Toast';
 import Login from './pages/Login';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
@@ -26,6 +27,7 @@ import ChangePassword from './pages/ChangePassword';
 export default function App() {
   return (
     <HashRouter>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />

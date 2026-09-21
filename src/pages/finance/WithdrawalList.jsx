@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CheckCircle, XCircle, Download, Search } from 'lucide-react';
 import Layout from '../../components/Layout';
+import { toast } from '../../components/Toast';
 import { withdrawals as initialData } from '../../data/mockData';
 
 const statusBadge = s => s==='Approved'?'badge-success':s==='Rejected'?'badge-danger':'badge-warning';
@@ -8,7 +9,7 @@ const statusBadge = s => s==='Approved'?'badge-success':s==='Rejected'?'badge-da
 export default function WithdrawalList() {
   const [data, setData] = useState(initialData);
   const [filter, setFilter] = useState({ status:'', from:'', to:'', search:'' });
-  const [confirmModal, setConfirmModal] = useState(null); // {id, action}
+  const [confirmModal, setConfirmModal] = useState(null);
 
   const filtered = data.filter(w =>
     (!filter.status || w.status === filter.status) &&
@@ -20,6 +21,7 @@ export default function WithdrawalList() {
 
   const doAction = (id, action) => {
     setData(d => d.map(w => w.id===id ? {...w, status: action==='approve'?'Approved':'Rejected'} : w));
+    toast(action==='approve' ? 'Withdrawal approved successfully' : 'Withdrawal rejected', action==='approve'?'success':'error');
     setConfirmModal(null);
   };
 
@@ -31,7 +33,7 @@ export default function WithdrawalList() {
           <h1>Withdrawal List</h1>
           <div className="flex gap-2">
             <div className="stat-card" style={{padding:'10px 16px',display:'flex',gap:'12px',alignItems:'center'}}>
-              <div><div style={{fontSize:'11px',color:'var(--text-muted)'}}>Pending Requests</div><div style={{fontWeight:700,fontSize:'18px',color:'var(--warning)'}}>{pending}</div></div>
+              <div><div style={{fontSize:'11px',color:'var(--text-muted)'}}>Pending</div><div style={{fontWeight:700,fontSize:'18px',color:'var(--warning)'}}>{pending}</div></div>
             </div>
             <div className="stat-card" style={{padding:'10px 16px',display:'flex',gap:'12px',alignItems:'center'}}>
               <div><div style={{fontSize:'11px',color:'var(--text-muted)'}}>Pending Amount</div><div style={{fontWeight:700,fontSize:'18px',color:'var(--danger)'}}>Rs.{totalPending.toFixed(0)}</div></div>
@@ -62,7 +64,7 @@ export default function WithdrawalList() {
             <Search size={13} style={{position:'absolute',left:'10px',bottom:'9px',color:'var(--text-muted)'}} />
             <input className="form-control" style={{paddingLeft:'30px'}} placeholder="Username or ID..." value={filter.search} onChange={e=>setFilter({...filter,search:e.target.value})} />
           </div>
-          <button className="btn btn-outline btn-sm" style={{alignSelf:'flex-end'}}><Download size={14} /> Export CSV</button>
+          <button className="btn btn-outline btn-sm" style={{alignSelf:'flex-end'}} onClick={()=>toast('Export started','info')}><Download size={14} /> Export CSV</button>
         </div>
 
         <div className="table-wrapper">
@@ -119,8 +121,8 @@ export default function WithdrawalList() {
             </div>
             <p style={{color:'var(--text-muted)',marginBottom:'16px'}}>
               {confirmModal.action==='approve'
-                ? `Are you sure you want to approve Rs.${confirmModal.amount.toFixed(2)} withdrawal for ${confirmModal.name}?`
-                : `Are you sure you want to reject the withdrawal request for ${confirmModal.name}?`}
+                ? `Approve Rs.${confirmModal.amount.toFixed(2)} for ${confirmModal.name}?`
+                : `Reject withdrawal request for ${confirmModal.name}?`}
             </p>
             <div className="modal-footer">
               <button className="btn btn-outline" onClick={()=>setConfirmModal(null)}>Cancel</button>

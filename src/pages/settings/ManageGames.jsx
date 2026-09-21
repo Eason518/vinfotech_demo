@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Plus, Edit2, Trash2, GripVertical, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Plus, Edit2, Trash2, GripVertical } from 'lucide-react';
 import Layout from '../../components/Layout';
+import { toast } from '../../components/Toast';
 import { games as initialGames } from '../../data/mockData';
 
 const categories = ['All', 'Sports', 'Fantasy', 'Other'];
@@ -13,17 +14,25 @@ export default function ManageGames() {
   const [form, setForm] = useState({ name:'', description:'', gameUrl:'', launchType:'In-App', image:'🎮', dimension:'1920x1080', status:'Active', category:'Sports' });
 
   const filtered = catFilter==='All' ? data : data.filter(g=>g.category===catFilter);
-  const toggleStatus = (id) => setData(d => d.map(g => g.id===id ? {...g, status:g.status==='Active'?'Inactive':'Active'} : g));
-  const deleteGame = (id) => { if(confirm('Delete this game?')) setData(d=>d.filter(g=>g.id!==id)); };
-
+  const toggleStatus = (id) => {
+    setData(d => d.map(g => g.id===id ? {...g, status:g.status==='Active'?'Inactive':'Active'} : g));
+    const g = data.find(x=>x.id===id);
+    toast(`${g?.name} ${g?.status==='Active'?'deactivated':'activated'}`, g?.status==='Active'?'warning':'success');
+  };
+  const deleteGame = (id) => {
+    const g = data.find(x=>x.id===id);
+    setData(d=>d.filter(g=>g.id!==id));
+    toast(`${g?.name} deleted`, 'error');
+  };
   const openAdd = () => { setEditItem(null); setForm({ name:'', description:'', gameUrl:'', launchType:'In-App', image:'🎮', dimension:'1920x1080', status:'Active', category:'Sports' }); setShowModal(true); };
   const openEdit = (g) => { setEditItem(g); setForm({name:g.name,description:g.description,gameUrl:g.gameUrl,launchType:g.launchType,image:g.image,dimension:g.dimension,status:g.status,category:g.category}); setShowModal(true); };
-
   const save = () => {
     if (editItem) {
       setData(d => d.map(g => g.id===editItem.id ? {...g,...form} : g));
+      toast('Game updated successfully', 'success');
     } else {
       setData(d => [...d, {...form, id:Date.now(), order:d.length+1}]);
+      toast('Game added successfully', 'success');
     }
     setShowModal(false);
   };
@@ -40,7 +49,6 @@ export default function ManageGames() {
           </div>
         </div>
       </div>
-
       <div className="card">
         <div className="flex gap-2" style={{marginBottom:'16px'}}>
           {categories.map(c=>(
@@ -48,7 +56,6 @@ export default function ManageGames() {
           ))}
           <span style={{marginLeft:'auto',color:'var(--text-muted)',fontSize:'13px',alignSelf:'center'}}>{filtered.length} games</span>
         </div>
-
         <div className="table-wrapper">
           <table>
             <thead><tr>
@@ -58,12 +65,7 @@ export default function ManageGames() {
             <tbody>
               {filtered.map(g => (
                 <tr key={g.id}>
-                  <td>
-                    <div className="flex items-center gap-2">
-                      <GripVertical size={14} color="var(--text-muted)" style={{cursor:'grab'}} />
-                      <span style={{color:'var(--text-muted)',fontSize:'12px'}}>{g.order}</span>
-                    </div>
-                  </td>
+                  <td><div className="flex items-center gap-2"><GripVertical size={14} color="var(--text-muted)" style={{cursor:'grab'}} /><span style={{color:'var(--text-muted)',fontSize:'12px'}}>{g.order}</span></div></td>
                   <td style={{fontSize:'28px',textAlign:'center'}}>{g.image}</td>
                   <td><strong>{g.name}</strong></td>
                   <td style={{fontSize:'12px',color:'var(--text-muted)',maxWidth:'160px'}}>{g.description}</td>
@@ -97,11 +99,11 @@ export default function ManageGames() {
         <div className="modal-overlay" onClick={()=>setShowModal(false)}>
           <div className="modal" style={{width:'560px'}} onClick={e=>e.stopPropagation()}>
             <div className="modal-header">
-              <h3>{editItem ? 'Edit Game' : 'Add New Game'}</h3>
+              <h3>{editItem?'Edit Game':'Add New Game'}</h3>
               <button className="modal-close" onClick={()=>setShowModal(false)}>✕</button>
             </div>
             <div className="grid-2">
-              {[['name','Game Name'],['gameUrl','Game URL'],['dimension','Dimension (WxH)'],['image','Icon (emoji)']].map(([k,l])=>(
+              {[['name','Game Name *'],['gameUrl','Game URL'],['dimension','Dimension'],['image','Icon (emoji)']].map(([k,l])=>(
                 <div className="form-group" key={k}>
                   <label className="form-label">{l}</label>
                   <input className="form-control" value={form[k]} onChange={e=>setForm({...form,[k]:e.target.value})} />

@@ -1,44 +1,51 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  LayoutDashboard, TrendingUp, ShieldCheck, Bell, Megaphone,
+  Users, FileText, BarChart2, DollarSign, Settings, KeyRound,
+  ChevronRight, UserPlus, ListChecks, Mail, BellRing,
+  Tag, UserCog, BookOpen, Image, PieChart, Wallet,
+  CreditCard, Gamepad2, Upload, ScrollText, Trophy
+} from 'lucide-react';
 
 const menuItems = [
-  { label: 'Dashboard', icon: '📊', path: '/dashboard' },
-  { label: 'Market', icon: '📈', path: '/market' },
-  { label: 'Admin Role Management', icon: '🛡️', children: [
-    { label: 'Add Role', path: '/admin/add-role' },
-    { label: 'Manage Roles', path: '/admin/manage-roles' },
+  { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
+  { label: 'Market', icon: TrendingUp, path: '/market' },
+  { label: 'Admin Role Management', icon: ShieldCheck, children: [
+    { label: 'Add Role', icon: UserPlus, path: '/admin/add-role' },
+    { label: 'Manage Roles', icon: ListChecks, path: '/admin/manage-roles' },
   ]},
-  { label: 'Communication', icon: '📢', children: [
-    { label: 'Dashboard', path: '/communication' },
-    { label: 'Email / Push Notifications', path: '/communication/email-push' },
-    { label: 'Project Notifications', path: '/communication/project' },
+  { label: 'Communication', icon: Bell, children: [
+    { label: 'Dashboard', icon: LayoutDashboard, path: '/communication' },
+    { label: 'Email / Push Notifications', icon: Mail, path: '/communication/email-push' },
+    { label: 'Project Notifications', icon: BellRing, path: '/communication/project' },
   ]},
-  { label: 'Marketing', icon: '🎯', children: [
-    { label: 'Promo Code', path: '/marketing/promo' },
+  { label: 'Marketing', icon: Megaphone, children: [
+    { label: 'Promo Code', icon: Tag, path: '/marketing/promo' },
   ]},
-  { label: 'User Management', icon: '👥', children: [
-    { label: 'Manage User', path: '/users/manage' },
+  { label: 'User Management', icon: Users, children: [
+    { label: 'Manage User', icon: UserCog, path: '/users/manage' },
   ]},
-  { label: 'Content Management', icon: '📝', children: [
-    { label: 'CMS', path: '/content/cms' },
-    { label: 'Signup Page Image', path: '/content/signup-image' },
+  { label: 'Content Management', icon: FileText, children: [
+    { label: 'CMS', icon: BookOpen, path: '/content/cms' },
+    { label: 'Signup Page Image', icon: Image, path: '/content/signup-image' },
   ]},
-  { label: 'Report', icon: '📋', children: [
-    { label: 'User Report', path: '/report/user' },
-    { label: 'User Deposit Amount', path: '/report/deposit' },
+  { label: 'Report', icon: BarChart2, children: [
+    { label: 'User Report', icon: PieChart, path: '/report/user' },
+    { label: 'User Deposit Amount', icon: Wallet, path: '/report/deposit' },
   ]},
-  { label: 'Manage Finance', icon: '💰', children: [
-    { label: 'Withdrawal List', path: '/finance/withdrawals' },
-    { label: 'Transaction List', path: '/finance/transactions' },
-    { label: 'Winning Balance', path: '/finance/winning-balance' },
+  { label: 'Manage Finance', icon: DollarSign, children: [
+    { label: 'Withdrawal List', icon: Wallet, path: '/finance/withdrawals' },
+    { label: 'Transaction List', icon: ScrollText, path: '/finance/transactions' },
+    { label: 'Winning Balance', icon: Trophy, path: '/finance/winning-balance' },
   ]},
-  { label: 'Settings', icon: '⚙️', children: [
-    { label: 'Manage Avatars', path: '/settings/avatars' },
-    { label: 'Payment Management', path: '/settings/payments' },
-    { label: 'Manage Games', path: '/settings/games' },
-    { label: 'Assets Upload', path: '/settings/assets' },
+  { label: 'Settings', icon: Settings, children: [
+    { label: 'Manage Avatars', icon: Users, path: '/settings/avatars' },
+    { label: 'Payment Management', icon: CreditCard, path: '/settings/payments' },
+    { label: 'Manage Games', icon: Gamepad2, path: '/settings/games' },
+    { label: 'Assets Upload', icon: Upload, path: '/settings/assets' },
   ]},
-  { label: 'Change Password', icon: '🔑', path: '/change-password' },
+  { label: 'Change Password', icon: KeyRound, path: '/change-password' },
 ];
 
 export default function Sidebar() {
@@ -57,44 +64,51 @@ export default function Sidebar() {
         <span>CRICJAM</span>
       </div>
       <ul className="sidebar-nav">
-        {menuItems.map(item => (
-          <li key={item.label} className="nav-item">
-            {item.children ? (
-              <>
+        {menuItems.map(item => {
+          const Icon = item.icon;
+          return (
+            <li key={item.label} className="nav-item">
+              {item.children ? (
+                <>
+                  <div
+                    className={`nav-link ${(open[item.label] || isParentActive(item.children)) ? 'open' : ''} ${isParentActive(item.children) ? 'active' : ''}`}
+                    onClick={() => toggle(item.label)}
+                  >
+                    <Icon size={16} />
+                    <span className="nav-label">{item.label}</span>
+                    <ChevronRight size={12} className="chevron" />
+                  </div>
+                  {(open[item.label] || isParentActive(item.children)) && (
+                    <ul className="nav-submenu">
+                      {item.children.map(child => {
+                        const CIcon = child.icon;
+                        return (
+                          <li key={child.path} className="nav-item">
+                            <div
+                              className={`nav-link ${isActive(child.path) ? 'active' : ''}`}
+                              onClick={() => navigate(child.path)}
+                            >
+                              <CIcon size={13} style={{opacity:0.7}} />
+                              <span className="nav-label">{child.label}</span>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </>
+              ) : (
                 <div
-                  className={`nav-link ${(open[item.label] || isParentActive(item.children)) ? 'open' : ''} ${isParentActive(item.children) ? 'active' : ''}`}
-                  onClick={() => toggle(item.label)}
+                  className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                  onClick={() => navigate(item.path)}
                 >
-                  <span style={{fontSize:'16px'}}>{item.icon}</span>
+                  <Icon size={16} />
                   <span className="nav-label">{item.label}</span>
-                  <span className="chevron">▶</span>
                 </div>
-                {(open[item.label] || isParentActive(item.children)) && (
-                  <ul className="nav-submenu">
-                    {item.children.map(child => (
-                      <li key={child.path} className="nav-item">
-                        <div
-                          className={`nav-link ${isActive(child.path) ? 'active' : ''}`}
-                          onClick={() => navigate(child.path)}
-                        >
-                          <span className="nav-label">{child.label}</span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </>
-            ) : (
-              <div
-                className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
-                onClick={() => navigate(item.path)}
-              >
-                <span style={{fontSize:'16px'}}>{item.icon}</span>
-                <span className="nav-label">{item.label}</span>
-              </div>
-            )}
-          </li>
-        ))}
+              )}
+            </li>
+          );
+        })}
       </ul>
     </aside>
   );

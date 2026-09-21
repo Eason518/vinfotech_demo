@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Edit2, Trash2, Copy, Tag, CheckCircle, XCircle } from 'lucide-react';
+import { Plus, Edit2, Trash2, Copy, Tag, CheckCircle, XCircle, Hash } from 'lucide-react';
 import Layout from '../../components/Layout';
 import { promoCodes as initial } from '../../data/mockData';
 
@@ -46,9 +46,9 @@ export default function PromoCode() {
       </div>
 
       <div className="stats-grid" style={{marginBottom:'20px',gridTemplateColumns:'repeat(4,1fr)'}}>
-        {[[Tag,'Total Codes',data.length,'#3a7bd5'],[CheckCircle,'Active',activeCount,'#28a745'],[XCircle,'Expired',data.filter(p=>p.status==='Expired').length,'#dc3545'],['#','Total Redemptions',totalUsed,'#6f42c1']].map(([Icon,l,v,c])=>(
+        {[[Tag,'Total Codes',data.length,'#3a7bd5'],[CheckCircle,'Active',activeCount,'#28a745'],[XCircle,'Expired',data.filter(p=>p.status==='Expired').length,'#dc3545'],[Hash,'Total Redemptions',totalUsed,'#6f42c1']].map(([Icon,l,v,c])=>(
           <div key={l} className="stat-card">
-            {typeof Icon==='function'
+            {typeof Icon !== 'string'
               ? <div style={{background:c+'18',borderRadius:'10px',padding:'9px',display:'inline-flex',marginBottom:'10px'}}><Icon size={20} color={c}/></div>
               : <div style={{background:c+'18',borderRadius:'10px',width:38,height:38,display:'flex',alignItems:'center',justifyContent:'center',marginBottom:'10px',fontSize:'18px',fontWeight:900,color:c}}>{Icon}</div>
             }

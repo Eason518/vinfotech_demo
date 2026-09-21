@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Send, Mail, Bell, Users, Eye, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import { notifications } from '../../data/mockData';
 
@@ -10,6 +11,7 @@ const reachData = [
 ];
 
 export default function CommDashboard() {
+  const navigate = useNavigate();
   const [preview, setPreview] = useState(null);
 
   const typeBadge = t => t==='Promotional'?'badge-primary':t==='Contest'?'badge-success':'badge-secondary';
@@ -20,7 +22,7 @@ export default function CommDashboard() {
         <p className="breadcrumb">Home / Communication / <span>Dashboard</span></p>
         <div className="flex justify-between items-center">
           <h1>Communication Dashboard</h1>
-          <button className="btn btn-primary btn-sm" onClick={()=>window.location.hash='/communication/email-push'}>
+          <button className="btn btn-primary btn-sm" onClick={()=>navigate('/communication/email-push')}>
             <Plus size={14} /> New Notification
           </button>
         </div>
@@ -84,7 +86,7 @@ export default function CommDashboard() {
                   <td><span className={`badge ${typeBadge(n.type)}`}>{n.type}</span></td>
                   <td><div className="flex gap-1">{n.status!=='Draft'&&<><Bell size={12} color="#3a7bd5"/><Mail size={12} color="#28a745"/></>}{n.status==='Draft'&&<span style={{fontSize:'12px',color:'var(--text-muted)'}}>—</span>}</div></td>
                   <td>{n.reach>0?n.reach.toLocaleString():'—'}</td>
-                  <td>{n.reach>0?Math.round(20+Math.random()*30)+'%':'—'}</td>
+                  <td>{n.reach>0?(n.id===1?'34%':n.id===2?'28%':n.id===3?'—':'—'):'—'}</td>
                   <td style={{fontSize:'12px',color:'var(--text-muted)'}}>{n.sent}</td>
                   <td><span className={`badge ${n.status==='Sent'?'badge-success':n.status==='Draft'?'badge-secondary':'badge-info'}`}>{n.status}</span></td>
                   <td><button className="btn btn-xs btn-outline" onClick={()=>setPreview(n)}><Eye size={11}/> View</button></td>

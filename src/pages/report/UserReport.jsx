@@ -51,7 +51,7 @@ export default function UserReport() {
         <div className="card">
           <div className="card-title">Top Users by Deposits</div>
           <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={userReports.sort((a,b)=>b.totalDeposit-a.totalDeposit).slice(0,5)} layout="vertical">
+            <BarChart data={[...userReports].sort((a,b)=>b.totalDeposit-a.totalDeposit).slice(0,5)} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis type="number" tick={{fontSize:11}} tickFormatter={v=>'Rs.'+v.toLocaleString()} />
               <YAxis type="category" dataKey="username" tick={{fontSize:12}} width={70} />

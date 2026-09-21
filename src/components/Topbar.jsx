@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Bell, User } from 'lucide-react';
 
 export default function Topbar({ pageTitle }) {
   const navigate = useNavigate();
@@ -16,24 +15,33 @@ export default function Topbar({ pageTitle }) {
     navigate('/login');
   };
 
+  const formatTime = (d) => {
+    let h = d.getHours();
+    const m = d.getMinutes().toString().padStart(2,'0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    return `${h}:${m} ${ampm} IST`;
+  };
+
   return (
     <header className="topbar">
       <div style={{fontWeight:600, fontSize:'15px', color:'var(--text)'}}>{pageTitle}</div>
       <div className="topbar-right">
-        <span className="topbar-time">{time.toLocaleString('en-IN')}</span>
-        <div style={{position:'relative', cursor:'pointer'}}>
-          <Bell size={18} color="var(--text-muted)" />
-          <span style={{position:'absolute',top:'-6px',right:'-6px',background:'var(--danger)',color:'#fff',borderRadius:'50%',width:'16px',height:'16px',fontSize:'9px',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700}}>3</span>
-        </div>
-        <div className="topbar-user">
-          <div className="avatar-circle">VA</div>
-          <div>
-            <div style={{fontSize:'13px', fontWeight:600, lineHeight:1.2}}>vadmin</div>
-            <div style={{fontSize:'11px', color:'var(--text-muted)', lineHeight:1.2}}>Super Admin</div>
-          </div>
-        </div>
-        <button className="btn-logout" onClick={handleLogout} style={{display:'flex',alignItems:'center',gap:'5px'}}>
-          <LogOut size={14} /> Logout
+        <span style={{
+          background:'var(--bg)', border:'1px solid var(--border)',
+          borderRadius:'6px', padding:'6px 14px',
+          fontSize:'13px', color:'var(--text-muted)', fontWeight:500
+        }}>{formatTime(time)}</span>
+        <button
+          className="btn-logout"
+          onClick={handleLogout}
+          style={{
+            background:'none', border:'1px solid var(--border)',
+            color:'var(--text)', padding:'6px 20px',
+            borderRadius:'6px', cursor:'pointer', fontSize:'13px', fontWeight:500
+          }}
+        >
+          Log Out
         </button>
       </div>
     </header>

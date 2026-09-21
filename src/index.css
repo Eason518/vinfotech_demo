@@ -3,9 +3,9 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --sidebar-bg: #1a2035;
-  --sidebar-hover: #253050;
-  --sidebar-active: #3a7bd5;
+  --sidebar-bg: #2a2e49;
+  --sidebar-hover: #363b5e;
+  --sidebar-active: #e94560;
   --sidebar-text: #adb5bd;
   --sidebar-text-active: #ffffff;
   --sidebar-width: 240px;

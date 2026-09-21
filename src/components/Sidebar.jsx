@@ -33,6 +33,7 @@ const menuItems = [
   { label: 'Report', icon: BarChart2, children: [
     { label: 'User Report', icon: PieChart, path: '/report/user' },
     { label: 'User Deposit Amount', icon: Wallet, path: '/report/deposit' },
+    { label: 'Referral Report', icon: Users, path: '/report/referral' },
   ]},
   { label: 'Manage Finance', icon: DollarSign, children: [
     { label: 'Withdrawal List', icon: Wallet, path: '/finance/withdrawals' },
@@ -44,6 +45,7 @@ const menuItems = [
     { label: 'Payment Management', icon: CreditCard, path: '/settings/payments' },
     { label: 'Manage Games', icon: Gamepad2, path: '/settings/games' },
     { label: 'Assets Upload', icon: Upload, path: '/settings/assets' },
+    { label: 'Deposit & Withdrawal', icon: Wallet, path: '/settings/deposit-withdrawal' },
   ]},
   { label: 'Change Password', icon: KeyRound, path: '/change-password' },
 ];
@@ -59,9 +61,12 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-logo">
-        <div className="logo-icon">CJ</div>
-        <span>CRICJAM</span>
+      <div className="sidebar-logo" style={{padding:'12px 20px', borderBottom:'1px solid rgba(255,255,255,0.08)'}}>
+        <span style={{fontSize:'28px', marginRight:'8px'}}>🛡️</span>
+        <div>
+          <div style={{color:'#fff', fontWeight:800, fontSize:'14px', letterSpacing:'1px', lineHeight:1}}>CRICJAM</div>
+          <div style={{color:'rgba(255,255,255,0.5)', fontSize:'10px', marginTop:'1px'}}>Admin Panel</div>
+        </div>
       </div>
       <ul className="sidebar-nav">
         {menuItems.map(item => {

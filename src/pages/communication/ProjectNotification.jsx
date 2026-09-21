@@ -2,28 +2,94 @@ import { useState } from 'react';
 import Layout from '../../components/Layout';
 
 export default function ProjectNotification() {
-  const [notifs, setNotifs] = useState([
-    { id:1, event:'New User Registration', enabled:true },
-    { id:2, event:'KYC Document Submitted', enabled:true },
-    { id:3, event:'Withdrawal Request', enabled:true },
-    { id:4, event:'Contest Created', enabled:false },
-    { id:5, event:'Contest Winner Declared', enabled:true },
-    { id:6, event:'Promo Code Used', enabled:false },
-    { id:7, event:'Suspicious Activity Detected', enabled:true },
-  ]);
-  const toggle = (id) => setNotifs(n => n.map(x => x.id===id ? {...x,enabled:!x.enabled} : x));
+  const [filters, setFilters] = useState({
+    status: 'All',
+    type: 'All',
+    category: '',
+    gameModule: '',
+    language: '',
+  });
+
+  const handleClear = () => setFilters({ status: 'All', type: 'All', category: '', gameModule: '', language: '' });
+
   return (
     <Layout title="Project Notifications">
-      <div className="page-header"><p className="breadcrumb">Home / Communication / <span>Project Notifications</span></p><h1>Project Notifications</h1></div>
-      <div className="card" style={{maxWidth:'600px'}}>
-        <p style={{color:'var(--text-muted)',fontSize:'13px',marginBottom:'20px'}}>Configure which platform events trigger admin notifications.</p>
-        {notifs.map(n => (
-          <div key={n.id} className="flex justify-between items-center" style={{padding:'14px 0',borderBottom:'1px solid var(--border)'}}>
-            <span style={{fontWeight:500}}>{n.event}</span>
-            <label className="toggle"><input type="checkbox" checked={n.enabled} onChange={()=>toggle(n.id)} /><span className="toggle-slider"></span></label>
+      <div className="page-header">
+        <p className="breadcrumb">Home / Communication / <span>Project Notifications</span></p>
+      </div>
+
+      <div className="card" style={{ marginBottom: '20px' }}>
+        <div className="filter-row" style={{ flexWrap: 'wrap' }}>
+          <div className="form-group">
+            <label className="form-label">Status</label>
+            <select className="form-control" value={filters.status} onChange={e => setFilters({ ...filters, status: e.target.value })}>
+              <option>All</option>
+              <option>Active</option>
+              <option>Inactive</option>
+            </select>
           </div>
-        ))}
-        <button className="btn btn-primary mt-4">Save Settings</button>
+          <div className="form-group">
+            <label className="form-label">Type</label>
+            <select className="form-control" value={filters.type} onChange={e => setFilters({ ...filters, type: e.target.value })}>
+              <option>All</option>
+              <option>Push</option>
+              <option>Email</option>
+              <option>SMS</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="form-label">Category</label>
+            <select className="form-control" value={filters.category} onChange={e => setFilters({ ...filters, category: e.target.value })}>
+              <option value="">Select...</option>
+              <option>Sports</option>
+              <option>Finance</option>
+              <option>Account</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="form-label">Game Module</label>
+            <select className="form-control" value={filters.gameModule} onChange={e => setFilters({ ...filters, gameModule: e.target.value })}>
+              <option value="">Select...</option>
+              <option>Cricket</option>
+              <option>Football</option>
+              <option>Kabaddi</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="form-label">Language</label>
+            <select className="form-control" value={filters.language} onChange={e => setFilters({ ...filters, language: e.target.value })}>
+              <option value="">Select...</option>
+              <option>English</option>
+              <option>Hindi</option>
+            </select>
+          </div>
+          <div style={{ display: 'flex', gap: '8px', alignSelf: 'flex-end' }}>
+            <button className="btn btn-danger btn-sm">Apply Filters</button>
+            <button className="btn btn-outline btn-sm" onClick={handleClear}>Clear Filters</button>
+          </div>
+        </div>
+      </div>
+
+      <div className="card">
+        <div style={{ fontWeight: 700, fontSize: '16px', marginBottom: '16px' }}>Recent Communication</div>
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Message</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colSpan={5} style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>No data available.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </Layout>
   );

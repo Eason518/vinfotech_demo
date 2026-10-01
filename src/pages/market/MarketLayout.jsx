@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Layout from '../../components/Layout';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import './market.css';
@@ -103,6 +103,7 @@ function NavItem({ item }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const closeTimer = useRef(null);
 
   const isActive = item.children
     ? item.children.some((c) => location.pathname.startsWith(c.path))
@@ -113,11 +114,25 @@ function NavItem({ item }) {
     setOpen(false);
   };
 
+  const cancelClose = () => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => setOpen(false), 250);
+  };
+
+  useEffect(() => () => cancelClose(), []);
+
   return (
     <div
       className="market-nav-item"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={() => { cancelClose(); setOpen(true); }}
+      onMouseLeave={scheduleClose}
     >
       <button
         className={`market-nav-btn ${isActive ? 'active' : ''}`}

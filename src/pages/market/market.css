@@ -70,7 +70,7 @@
 
 .market-dropdown {
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
   left: 0;
   background: #1a1f2e;
   border: 1px solid #2d3447;

@@ -14,14 +14,13 @@ export default function ForgotPassword() {
   return (
     <div style={{ minHeight:'100vh', background:'#eeeff4', display:'flex', flexDirection:'column' }}>
       <div style={{background:'#1e2a3a', padding:'16px 24px'}}>
-        <div style={{color:'#fff', fontWeight:700, fontSize:'18px'}}>Cricjam Admin panel</div>
+        <div style={{color:'#fff', fontWeight:700, fontSize:'18px'}}>Admin Panel</div>
         <div style={{color:'rgba(255,255,255,0.6)', fontSize:'13px', marginTop:'2px'}}>Reset your password</div>
       </div>
       <div style={{flex:1, display:'flex', alignItems:'center', justifyContent:'center'}}>
         <div style={{background:'#fff', borderRadius:'8px', padding:'32px 40px', width:'400px', boxShadow:'0 2px 12px rgba(0,0,0,0.1)'}}>
           <div style={{textAlign:'center', marginBottom:'24px'}}>
-            <div style={{fontSize:'48px'}}>🛡️</div>
-            <div style={{fontWeight:800, fontSize:'20px', letterSpacing:'2px', color:'#1e2a3a'}}>CRICJAM</div>
+            <div style={{fontWeight:800, fontSize:'20px', letterSpacing:'2px', color:'#1e2a3a'}}>Admin Panel</div>
           </div>
           <h3 style={{marginBottom:'8px', fontWeight:600}}>Forgot Password</h3>
           <p style={{color:'#666', fontSize:'13px', marginBottom:'20px'}}>Enter your email address and we'll send you a reset link.</p>

@@ -4,8 +4,8 @@ import { toast } from '../../components/Toast';
 
 const initialAdmins = [
   { id: 1, firstName: 'vadmin', lastName: 'Admin', email: 'vadmin@vinfotech.com', twoFA: 'No', adminBlock: 'No', role: 'Super Admin' },
-  { id: 2, firstName: 'content', lastName: 'Manager', email: 'content@cricjam.com', twoFA: 'No', adminBlock: 'No', role: 'Content Manager' },
-  { id: 3, firstName: 'finance', lastName: 'Manager', email: 'finance@cricjam.com', twoFA: 'No', adminBlock: 'No', role: 'Finance Manager' },
+  { id: 2, firstName: 'content', lastName: 'Manager', email: 'content@admin.com', twoFA: 'No', adminBlock: 'No', role: 'Content Manager' },
+  { id: 3, firstName: 'finance', lastName: 'Manager', email: 'finance@admin.com', twoFA: 'No', adminBlock: 'No', role: 'Finance Manager' },
 ];
 
 export default function ManageRoles() {

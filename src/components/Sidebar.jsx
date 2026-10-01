@@ -62,11 +62,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo" style={{padding:'12px 20px', borderBottom:'1px solid rgba(255,255,255,0.08)'}}>
-        <span style={{fontSize:'28px', marginRight:'8px'}}>🛡️</span>
-        <div>
-          <div style={{color:'#fff', fontWeight:800, fontSize:'14px', letterSpacing:'1px', lineHeight:1}}>CRICJAM</div>
-          <div style={{color:'rgba(255,255,255,0.5)', fontSize:'10px', marginTop:'1px'}}>Admin Panel</div>
-        </div>
+        <div style={{color:'#fff', fontWeight:800, fontSize:'14px', letterSpacing:'1px', lineHeight:1}}>Admin Panel</div>
       </div>
       <ul className="sidebar-nav">
         {menuItems.map(item => {

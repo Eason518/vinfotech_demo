@@ -27,7 +27,7 @@ export default function Login() {
     }}>
       {/* Top bar */}
       <div style={{background:'#1e2a3a', padding:'16px 24px'}}>
-        <div style={{color:'#fff', fontWeight:700, fontSize:'18px'}}>Cricjam Admin panel</div>
+        <div style={{color:'#fff', fontWeight:700, fontSize:'18px'}}>Admin Panel</div>
         <div style={{color:'rgba(255,255,255,0.6)', fontSize:'13px', marginTop:'2px'}}>Let in to get going</div>
       </div>
 
@@ -39,8 +39,7 @@ export default function Login() {
         }}>
           {/* Logo */}
           <div style={{textAlign:'center', marginBottom:'24px'}}>
-            <div style={{fontSize:'48px'}}>🛡️</div>
-            <div style={{fontWeight:800, fontSize:'20px', letterSpacing:'2px', color:'#1e2a3a'}}>CRICJAM</div>
+            <div style={{fontWeight:800, fontSize:'20px', letterSpacing:'2px', color:'#1e2a3a'}}>Admin Panel</div>
           </div>
 
           {error && (

@@ -126,7 +126,7 @@ export default function Landing() {
             {/* Need help */}
             <div style={{background:'#fff', borderRadius:'10px', padding:'20px 24px', border:'1px solid var(--border)', boxShadow:'0 1px 3px rgba(0,0,0,0.04)'}}>
               <h3 style={{fontWeight:700, fontSize:'15px', marginBottom:'8px'}}>Need help?</h3>
-              <a href="mailto:support@cricjam.com" style={{color:'#666', fontSize:'13px', textDecoration:'none'}}>support@cricjam.com</a>
+              <a href="mailto:support@admin.com" style={{color:'#666', fontSize:'13px', textDecoration:'none'}}>support@admin.com</a>
             </div>
           </div>
         </div>

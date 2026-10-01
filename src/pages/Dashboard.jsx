@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
-import { Users, TrendingUp, DollarSign, ArrowDownCircle, Trophy, Clock, UserPlus, Inbox } from 'lucide-react';
+import { Users, TrendingUp, DollarSign, ArrowDownCircle, Trophy, Clock, UserPlus, Inbox, Download, TrendingDown, Activity, BarChart2 } from 'lucide-react';
 import Layout from '../components/Layout';
 import { dashboardStats, chartData } from '../data/mockData';
 
@@ -12,6 +12,13 @@ const TABS = [
   { label: 'Marketing', icon: '🎯' },
   { label: 'Trending Events', icon: '⭐' },
   { label: 'Referrals', icon: '🔗' },
+  { label: 'Leaderboards & Platform', icon: '🏆' },
+];
+
+const leaderboardSubTabs = [
+  { key: 'depositors', label: 'Top Depositors', icon: BarChart2, metricLabel: 'Deposited', title: 'Top Depositors' },
+  { key: 'withdrawals', label: 'High Withdrawals', icon: TrendingDown, metricLabel: 'Withdrawn', title: 'High Withdrawal Users' },
+  { key: 'engaged', label: 'Most Engaged', icon: Activity, metricLabel: 'Engagement Score', title: 'Most Engaged Users' },
 ];
 
 function StatCard({ label, value, change, icon: Icon, color }) {
@@ -44,6 +51,7 @@ const fmt = d => d.toISOString().slice(0, 10);
 
 export default function Dashboard() {
   const [tab, setTab] = useState('Overview');
+  const [lbSubTab, setLbSubTab] = useState('depositors');
   const [dateFrom, setDateFrom] = useState(fmt(oneMonthAgo));
   const [dateTo, setDateTo] = useState(fmt(today));
   const [preset, setPreset] = useState('Last 30 Days');
@@ -260,6 +268,72 @@ export default function Dashboard() {
             <tbody>{leaderboardData.slice(0, 5).map((r, i) => (
               <tr key={r.rank}><td style={{ fontWeight: 700, fontSize: '15px' }}>{rankBadge(i + 1)}</td><td><strong>{r.username}</strong></td><td>{r.fullName}</td><td>{r.wins}</td><td style={{ fontWeight: 700, color: 'var(--success)' }}>Rs.{(r.wins * 50).toLocaleString()}</td></tr>
             ))}</tbody></table></div>
+        </div>
+      )}
+
+      {tab === 'Leaderboards & Platform' && (
+        <div className="card">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Users size={20} color="#3a7bd5" />
+              <h3 style={{ fontWeight: 700, fontSize: '17px', margin: 0 }}>Leaderboards &amp; Reports</h3>
+            </div>
+            <button
+              style={{
+                background: '#28a745', color: '#fff', border: 'none', borderRadius: '6px',
+                padding: '8px 18px', fontWeight: 600, fontSize: '13px', cursor: 'pointer',
+                display: 'inline-flex', alignItems: 'center', gap: '6px',
+              }}
+            >
+              <Download size={14} /> Export CSV
+            </button>
+          </div>
+
+          <div style={{ display: 'flex', gap: '24px', borderBottom: '1px solid var(--border)', marginBottom: '20px', paddingBottom: '14px' }}>
+            {leaderboardSubTabs.map(st => {
+              const Icon = st.icon;
+              const active = lbSubTab === st.key;
+              return (
+                <div
+                  key={st.key}
+                  onClick={() => setLbSubTab(st.key)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer',
+                    padding: '8px 14px', borderRadius: '6px', fontSize: '13px', fontWeight: 600,
+                    color: active ? '#3a7bd5' : 'var(--text-muted)',
+                    background: active ? '#eaf1fd' : 'transparent',
+                  }}
+                >
+                  <Icon size={15} /> {st.label}
+                </div>
+              );
+            })}
+          </div>
+
+          {leaderboardSubTabs.filter(st => st.key === lbSubTab).map(st => (
+            <div key={st.key} style={{ border: '1px solid var(--border)', borderRadius: '10px', padding: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Users size={17} color="#3a7bd5" />
+                  <h4 style={{ fontWeight: 700, fontSize: '15px', margin: 0 }}>{st.title}</h4>
+                </div>
+                <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Admin Use Only</span>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Rank</th><th>Username</th><th>Mobile</th><th>Email</th><th>City</th>
+                    <th>{st.metricLabel}</th><th>Change</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colSpan={7} style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '28px 0' }}>No Record</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          ))}
         </div>
       )}
 

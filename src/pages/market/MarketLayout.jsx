@@ -26,6 +26,8 @@ import AssetManagement from './AssetManagement';
 import BannerManagement from './BannerManagement';
 import ReorderMarkets from './ReorderMarkets';
 import ReorderTopics from './ReorderTopics';
+import CommNewBroadcast from './CommNewBroadcast';
+import CommCampaigns from './CommCampaigns';
 
 const navItems = [
   {
@@ -74,6 +76,13 @@ const navItems = [
     children: [
       { label: 'P&L Report', path: '/market/reports/pl' },
       { label: 'User Reports', path: '/market/reports/users' },
+    ],
+  },
+  {
+    label: 'Communication',
+    children: [
+      { label: 'New Broadcast', path: '/market/communication/new-broadcast' },
+      { label: 'Campaigns', path: '/market/communication/campaigns' },
     ],
   },
   {
@@ -139,7 +148,6 @@ export default function MarketLayout() {
     <Layout title="Market">
       <div className="market-root" style={{margin:'-24px', minHeight:'calc(100vh - 56px)'}}>
       <nav className="market-navbar">
-        <div className="market-navbar-brand">⚡ MarketAdmin</div>
         <div className="market-nav-items">
           {navItems.map((item) => (
             <NavItem key={item.label} item={item} />
@@ -168,6 +176,8 @@ export default function MarketLayout() {
           <Route path="tournament/merchandize" element={<AddMerchandize />} />
           <Route path="reports/pl" element={<PLReport />} />
           <Route path="reports/users" element={<UserReports />} />
+          <Route path="communication/new-broadcast" element={<CommNewBroadcast />} />
+          <Route path="communication/campaigns" element={<CommCampaigns />} />
           <Route path="settings/app" element={<AppSetting />} />
           <Route path="settings/amm" element={<AMM />} />
           <Route path="settings/assets" element={<AssetManagement />} />

@@ -135,6 +135,21 @@ export const reorderMarketsList = [
   { id: '25', name: 'Finance' },
 ];
 
+export const broadcastMarkets = [
+  { id: 'O32F869E01', name: 'Kraken IPO by ___ ?', category: 'Crypto', volume: '$0', yesPrice: '0¢', tag: 'new' },
+  { id: 'ECO001', name: 'US 30-Year Treasury Auction High Yield ___?', category: 'Economy', volume: '$0', yesPrice: '10¢', tag: 'hot' },
+  { id: 'ECO002', name: 'Euro area unemployment ___ in Oct 1 release?', category: 'Economy', volume: '$0', yesPrice: '10¢', tag: 'hot' },
+  { id: 'O2BE841796', name: 'AWS re:Invent 2026 Runs Through ___?', category: 'Tech', volume: '$0', yesPrice: '5¢', tag: 'new' },
+  { id: 'OD7419DABF', name: 'SpaceX Mission Liftoff Date ___ for NROL-97?', category: 'Tech', volume: '$0', yesPrice: '5¢', tag: 'new' },
+  { id: 'O0660632D8', name: 'OpenAI DevDay Exchange City ___ on Oct 2026?', category: 'Tech', volume: '$0', yesPrice: '70¢', tag: 'popular' },
+  { id: 'O2BE841796B', name: 'Apple EU Terms Effective Oct 1, 2026 ___?', category: 'Tech', volume: '$0', yesPrice: '55¢', tag: 'popular' },
+  { id: 'OD7419DABFB', name: 'SpaceX October 1 Launch Liftoff First ___?', category: 'Tech', volume: '$0', yesPrice: '55¢', tag: 'hot' },
+  { id: 'ECO003', name: 'IMF WEO (Oct 13) global growth ___?', category: 'Economy', volume: '$0', yesPrice: '15¢', tag: 'hot' },
+  { id: 'ECO004', name: 'US ISM PMI (Sep) above ___?', category: 'Economy', volume: '$0', yesPrice: '15¢', tag: 'new' },
+];
+
+export const campaigns = [];
+
 export const reorderTopicsList = [
   { id: 'O32F869E01', name: 'IPO' },
   { id: 'O32F869E02', name: 'Celebrities' },

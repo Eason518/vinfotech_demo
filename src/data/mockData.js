@@ -118,3 +118,18 @@ export const cmsPages = [
   { id: 5, title: 'Responsible Gaming', slug: 'responsible-gaming', lastUpdated: '2024-01-15', status: 'Draft' },
   { id: 6, title: 'FAQ', slug: 'faq', lastUpdated: '2024-03-12', status: 'Published' },
 ];
+
+export const depositorsLeaderboard = [
+  { rank: 1, username: 'vijay_r', mobile: '+91 9634567890', email: 'vijay.r@gmail.com', city: 'Hyderabad', amount: 28000.00 },
+  { rank: 2, username: 'arjun_b', mobile: '+91 9456789012', email: 'arjun.bose@gmail.com', city: 'Kolkata', amount: 18500.00 },
+  { rank: 3, username: 'priya_s', mobile: '+91 9823456789', email: 'priya.s@gmail.com', city: 'Delhi', amount: 12400.00 },
+  { rank: 4, username: 'rahul_k', mobile: '+91 9876543210', email: 'rahul.kumar@gmail.com', city: 'Mumbai', amount: 6200.00 },
+  { rank: 5, username: 'rakesh_t', mobile: '+91 9234567890', email: 'rakesh.t@gmail.com', city: 'Lucknow', amount: 4100.00 },
+];
+
+export const timeSpentLeaderboard = [
+  { rank: 1, username: 'umesh.joshi', mobile: '—', email: 'umesh.joshi@vinfotech.com', city: '—', timeSpent: '00:01:02' },
+];
+
+export const withdrawalLeaderboard = [];
+

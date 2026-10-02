@@ -27,6 +27,9 @@ import ChangePassword from './pages/ChangePassword';
 import ForgotPassword from './pages/ForgotPassword';
 import ReferralReport from './pages/report/ReferralReport';
 import DepositWithdrawal from './pages/settings/DepositWithdrawal';
+import DepositorsLeaderboard from './pages/leaderboard/DepositorsLeaderboard';
+import TimeSpentLeaderboard from './pages/leaderboard/TimeSpentLeaderboard';
+import WithdrawalLeaderboard from './pages/leaderboard/WithdrawalLeaderboard';
 
 export default function App() {
   return (
@@ -60,6 +63,9 @@ export default function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/report/referral" element={<ReferralReport />} />
         <Route path="/settings/deposit-withdrawal" element={<DepositWithdrawal />} />
+        <Route path="/leaderboard/depositors" element={<DepositorsLeaderboard />} />
+        <Route path="/leaderboard/timespent" element={<TimeSpentLeaderboard />} />
+        <Route path="/leaderboard/withdrawal" element={<WithdrawalLeaderboard />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </HashRouter>

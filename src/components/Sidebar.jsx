@@ -5,12 +5,17 @@ import {
   Users, FileText, BarChart2, DollarSign, Settings, KeyRound,
   ChevronRight, UserPlus, ListChecks, Mail, BellRing,
   Tag, UserCog, BookOpen, Image, PieChart, Wallet,
-  CreditCard, Gamepad2, Upload, ScrollText, Trophy
+  CreditCard, Gamepad2, Upload, ScrollText, Trophy, Clock, Award
 } from 'lucide-react';
 
 const menuItems = [
   { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
   { label: 'Market', icon: TrendingUp, path: '/market' },
+  { label: 'Leaderboard', icon: Trophy, children: [
+    { label: 'Depositors Leaderboard', icon: Award, path: '/leaderboard/depositors' },
+    { label: 'Time Spent Leaderboard', icon: Clock, path: '/leaderboard/timespent' },
+    { label: 'Withdrawal Leaderboard', icon: Wallet, path: '/leaderboard/withdrawal' },
+  ]},
   { label: 'Admin Role Management', icon: ShieldCheck, children: [
     { label: 'Add Role', icon: UserPlus, path: '/admin/add-role' },
     { label: 'Manage Roles', icon: ListChecks, path: '/admin/manage-roles' },

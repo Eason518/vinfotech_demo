@@ -28,6 +28,7 @@ import ReorderMarkets from './ReorderMarkets';
 import ReorderTopics from './ReorderTopics';
 import CommNewBroadcast from './CommNewBroadcast';
 import CommCampaigns from './CommCampaigns';
+import MarketOperationsConsole from './MarketOperationsConsole';
 
 const navItems = [
   {
@@ -40,6 +41,7 @@ const navItems = [
   {
     label: 'Event Management',
     children: [
+      { label: 'Market Operations Console', path: '/market/operations-console' },
       { label: 'Events', path: '/market/events' },
       { label: 'Topics', path: '/market/topics' },
       { label: 'Markets', path: '/market/markets' },
@@ -175,6 +177,7 @@ export default function MarketLayout() {
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<MarketDashboard />} />
           <Route path="dashboard/game" element={<MarketDashboard />} />
+          <Route path="operations-console" element={<MarketOperationsConsole />} />
           <Route path="events" element={<Events />} />
           <Route path="topics" element={<Topics />} />
           <Route path="markets" element={<Markets />} />

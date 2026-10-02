@@ -150,6 +150,34 @@ export const broadcastMarkets = [
 
 export const campaigns = [];
 
+export const marketOpsConsole = [
+  { src: '??', category: 'World', market: 'Will Vox get a cabinet seat in the next Andalusian government?', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+2d 6h' },
+  { src: '??', category: 'FIFA World Cup', market: 'Who will win the match? (Croatia vs Ghana)', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+96d 6h' },
+  { src: '??', category: 'FIFA World Cup', market: 'Who will win the match? (Colombia vs Portugal)', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+96d 4h' },
+  { src: '??', category: 'FIFA World Cup', market: 'Who will win the match? (Jordan vs Argentina)', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+96d 1h' },
+  { src: '??', category: 'FIFA World Cup', market: 'Who will win the match? (South Africa vs Canada)', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+95d 8h' },
+  { src: '??', category: 'Tech', market: 'RAM price growing by 10%', multi: false, featured: true, liveStatus: '—', status: 'Awaiting', volume: '$10', traders: 2, ammExp: '$0', closes: '+62d 10h' },
+  { src: '??', category: 'Soccer', market: 'Sounders beat Sporting KC on Oct 1?', multi: false, featured: false, liveStatus: 'Live', status: 'Live', volume: '$240', traders: 18, ammExp: '–', closes: '+5h 27m' },
+  { src: '??', category: 'Tech', market: 'SpaceX next launch mission name ___?', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+5h 27m' },
+  { src: '??', category: 'Tech', market: 'Crew-13 liftoff time window ___?', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+5h 27m' },
+  { src: '??', category: 'Tech', market: 'Apple Developer events city on Oct 1 ___?', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+5h 27m' },
+  { src: '??', category: 'Economy', market: 'US ISM PMI (Sep) above ___?', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+5h 27m' },
+  { src: '??', category: 'Tech', market: 'SpaceX October 1 Launch Liftoff First ___?', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '$0', closes: '+5h 27m' },
+  { src: '??', category: 'Tech', market: 'Apple EU Terms Effective Oct 1, 2026 ___?', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '$0', closes: '+5h 27m' },
+  { src: '??', category: 'Economy', market: 'Euro area unemployment ___ in Oct 1 release?', multi: false, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+5h 27m' },
+  { src: '??', category: 'NFL, Pittsburgh Steelers vs Cleveland Browns', market: 'Total Points (Pittsburgh Steelers vs Cleveland Browns)', multi: true, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+1h 57m' },
+  { src: '??', category: 'NFL, Pittsburgh Steelers vs Cleveland Browns', market: 'Team Totals (Pittsburgh Steelers vs Cleveland Browns)', multi: true, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+1h 57m' },
+  { src: '??', category: 'MLB, Philadelphia Phillies vs Atlanta Braves', market: 'Total (Philadelphia Phillies vs Atlanta Braves)', multi: true, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+2h 27m' },
+  { src: '??', category: 'Indiana Fever vs Las Vegas Aces, WNBA', market: 'Total Points (Indiana Fever vs Las Vegas Aces)', multi: true, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+2h 27m' },
+  { src: '??', category: 'College Football, Western Kentucky vs New Mexico State', market: 'Moneyline (Western Kentucky vs New Mexico State)', multi: true, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+1h 57m' },
+  { src: '??', category: 'Buffalo Sabres vs Columbus Blue Jackets, NHL', market: 'Total Goals (Buffalo Sabres vs Columbus Blue Jackets)', multi: true, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+3h 57m' },
+  { src: '??', category: 'NHL, Philadelphia Flyers vs New Jersey Devils', market: 'Total Goals (Philadelphia Flyers vs New Jersey Devils)', multi: true, featured: false, liveStatus: '—', status: 'Awaiting', volume: '$0', traders: 0, ammExp: '–', closes: '+3h 57m' },
+  { src: '??', category: 'Crypto', market: 'Will Bitcoin exceed $100k by end of 2026?', multi: false, featured: true, liveStatus: 'Live', status: 'Live', volume: '$4,200', traders: 312, ammExp: '$1,200', closes: '+91d 2h' },
+  { src: '??', category: 'Crypto', market: 'Will Solana price go up or down this week?', multi: false, featured: false, liveStatus: 'Live', status: 'Live', volume: '$1,640', traders: 88, ammExp: '$0', closes: '+6d 4h' },
+  { src: '??', category: 'Politics', market: 'Will the next IMF review be approved this quarter?', multi: false, featured: false, liveStatus: '—', status: 'Resolved', volume: '$2,840', traders: 154, ammExp: '–', closes: 'Closed' },
+  { src: '??', category: 'Sports', market: 'Will India win the next ICC T20 World Cup?', multi: false, featured: true, liveStatus: '—', status: 'Closed', volume: '$3,120', traders: 201, ammExp: '–', closes: 'Closed' },
+];
+
 export const reorderTopicsList = [
   { id: 'O32F869E01', name: 'IPO' },
   { id: 'O32F869E02', name: 'Celebrities' },
